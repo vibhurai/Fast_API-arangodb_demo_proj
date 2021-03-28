@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+
+  <body>
+    <!-- Insertion template -->
+
+    <h1>Insert Here....</h1>
+    <input type="text" id="actor_nm" placeholder="Enter actor name..." />
+    <input value="insert" type="submit" onclick="curr_db()" />
+
+    <!-- Updation template -->
+    <h1>Updates....</h1>
+    <input id="actor_nm_last" placeholder="Enter actor key to be updated..." />
+    <input id="actor_nm_up" placeholder="Enter new actor name..." />
+    <input value="update" type="submit" onclick="curr_db_up()" />
+
+    <!-- Deletion template -->
+    <h1>Deletions....</h1>
+    <input id="actor_nm_del" placeholder="Enter actor key..." />
+    <input value="delete" type="submit" onclick="curr_db_del()" />
+
+    <!-- Read template -->
+    <h1>Read....</h1>
+    <input value="see table" type="submit" onclick="curr_db_read()" />
+
+    <script>
+      function curr_db(e) {
+        let actor_nm = document.getElementById("actor_nm").value;
+
+        fetch(`http://127.0.0.1:8000/actor`, {
+          method: "POST",
+          body: JSON.stringify({
+            name: actor_nm,
+          }),
+        }).then(() => curr_db_read());
+      }
+
+      function curr_db_up() {
+        let actor_nm_last = document.getElementById("actor_nm_last").value;
+        let actor_nm = document.getElementById("actor_nm_up").value;
+
+        fetch(`http://127.0.0.1:8000/actor/${actor_nm_last}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            name: actor_nm,
+          }),
+        }).then(() => curr_db_read());
+      }
+
+      function curr_db_del() {
+        let actor_nm = document.getElementById("actor_nm_del").value;
+
+        fetch(`http://127.0.0.1:8000/actor`, {
+          method: "DELETE",
+          body: JSON.stringify({
+            key: actor_nm,
+          }),
+        }).then(() => curr_db_read());
+      }
+
+      function curr_db_read() {
+        window.location.pathname = "/actor";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h1>The current database state is...</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Key
+                </th>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Rev
+                </th>
+                <th>
+                    Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for actor in list%}
+            <tr>
+                <td>
+                    {{actor._key}}
+                </td>
+                <td>
+                    {{actor._id}}
+                </td>
+                <td>
+                    {{actor._rev}}
+                </td>
+                <td>
+                    {{actor.name}}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</body>
+</html> 
