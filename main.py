@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 import requests
 from arango import ArangoClient, AQLQueryKillError
 from pydantic import BaseModel 
+import json
 
 # connect to the arangodb database
 client = ArangoClient()
@@ -67,9 +68,11 @@ async def delete_item(actor: Actor_k):
     }
 
 # Retrieval
-@app.get("/actor", response_class=HTMLResponse)
+@app.get("/actor")#, response_class=HTMLResponse)
 async def read_db( request: Request):
     lt=[]
     for actor in actors:
         lt.append((db.document(actor['_id'])))
-    return templates.TemplateResponse("data.html" ,{"request": request, "list": lt})
+    jsonStr = json.dumps(lt)
+    # return templates.TemplateResponse("data.html" ,{"request": request, "list": lt})
+    return jsonStr
