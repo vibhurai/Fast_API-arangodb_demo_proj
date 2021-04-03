@@ -51,7 +51,7 @@ async def update_item(actor: Actor, actor_key: str):
     actors.update_match({'_key': actor_key},{'name': actor.name} )
     return {
         "code": "success",
-        "message": "updation successfull",
+        "message": "updation successfull"
     } 
         
 
